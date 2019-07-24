@@ -67,6 +67,8 @@ Note: Do not save packages under Delphi IDE.
 
   MiniTerm.dpr - simple terminal application
 
+  ComExampleMOD - the same of ComExample with improvements
+
   CPortMonitor.pas - TCPortMonitor component for monitoring incoming and  outgoing data. This example shows how to link to TCustomComPort component. Author: Roelof Y. Ensing (e-mail: ensingroel@msn.com).
 
   BarCodeScanner.pas - TBarCodeScanner component. An example of simple TCustomComPort descendant. 
