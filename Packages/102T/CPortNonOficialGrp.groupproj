@@ -1,0 +1,36 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{B67AC5A7-D478-4191-A1BC-D54879A290F9}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="CPortNonOficial.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="CPortNonOficial">
+        <MSBuild Projects="CPortNonOficial.dproj"/>
+    </Target>
+    <Target Name="CPortNonOficial:Clean">
+        <MSBuild Projects="CPortNonOficial.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="CPortNonOficial:Make">
+        <MSBuild Projects="CPortNonOficial.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="CPortNonOficial"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="CPortNonOficial:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="CPortNonOficial:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>
