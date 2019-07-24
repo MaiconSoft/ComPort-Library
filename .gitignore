@@ -1,0 +1,8 @@
+
+*.dcu
+*.stat
+*.local
+*.exe
+*.identcache
+Examples/ComExample/ComExample.dproj
+Source/__history/CPort.pas.~1~

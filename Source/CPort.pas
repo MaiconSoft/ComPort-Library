@@ -9,6 +9,13 @@
  * Brian Gochnauer Oct 2010                           *
  *     Removed ansi references for backward compat    *
  *     Made unicode ready                             *
+ *                                                    *
+ * Maintained by MaicoSoft Jul 2019                   *
+ *    Add TryConnnect,TryDisconnnect, TryToggle for   *
+ *    safe handle serial port                         *
+ *    Add TestPort for check if port is available to  *
+ *    open                                            *                           *
+ *                                                    *
  *****************************************************)
 
 unit CPort;
@@ -406,6 +413,10 @@ type
     procedure LoadSettings(StoreType: TStoreType; LoadFrom: string);
     procedure Open;
     procedure Close;
+    function TryConect: Boolean;
+    function TryDisconect: Boolean;
+    function TryToggle: Boolean;
+    function TestPort: Boolean;
 {$IFNDEF No_Dialogs}
     procedure ShowSetupDialog;
 {$ENDIF}
@@ -1559,6 +1570,53 @@ begin
     CallAfterClose;
   end;
 end;
+
+// MaicoSoft - includes codepage for check connect available
+function TCustomComPort.TestPort: Boolean;
+begin
+  if Connected then
+    Exit(True);
+  result := TryConect;
+  Connected := False;
+end;
+
+// MaicoSoft - includes codepage for safe connect
+function TCustomComPort.TryConect: Boolean;
+begin
+  if Connected then
+    Exit(True);
+  try
+    Open;
+    result := True;
+  except
+    result := False;
+  end;
+end;
+
+// MaicoSoft - includes codepage for safe disconnect
+function TCustomComPort.TryDisconect: Boolean;
+begin
+  if not Connected then
+    Exit(True);
+  try
+    Close;
+    result := True;
+  except
+    result := False;
+  end;
+end;
+
+// MaicoSoft - includes codepage for safe toggle connection
+function TCustomComPort.TryToggle: Boolean;
+begin
+  result := True;
+  try
+    Connected := not Connected;
+  except
+    result := False;
+  end;
+end;
+
 
 // apply port properties
 procedure TCustomComPort.ApplyDCB;
