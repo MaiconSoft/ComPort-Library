@@ -58,26 +58,26 @@ End;
 **TAs7bits**
 * **As7bByte[Index: Integer]**: Lê e escreve bytes de 7 bits;
 * **AsByte[Index: Integer]**: Lê e escreve bytes de 8 bits, organizados em dois bytes de 7 bits;
-*8 bits byte =  **0xDE** [<span style="color:red;">1</span><span style="color:blue;">101 1110</span>b]*  converte em:
-*7 bits bytes =  **0x01**[<span style="color:red;">0000 0001</span>b] **0x5E** [<span style="color:blue;">0101 1110</span>b]*.
+*8 bits byte =  **0xDE** [1101 1110b]*  converte em:
+*7 bits bytes =  **0x01**[0000 0001b] **0x5E** [0101 1110b]*.
 
 * **AsWord[Index: Integer]**: Read and write 16-bit Word, arranged in three 7-bit bytes;
-*16 bits word =  **0xDE85**  [<span style="color:red;">11</span><span style="color:blue;">01 1110 1</span><span style="color:orange;">000 0101</span>b]*  converte em: 
-*7 bits bytes =  **0x03** [<span style="color:red;">0000 0011</span>b] **0x3D** [<span style="color:blue;">011 1101</span>b] **0x05** [<span style="color:orange;">0000 0101</span>b]] *.
+*16 bits word =  **0xDE85**  [1101 1110 1000 0101b]*  converte em: 
+*7 bits bytes =  **0x03** [0000 0011b] **0x3D** [011 1101b] **0x05** [0000 0101b]] *.
 
 * **AsNible**: Nible is a property of type T7bNible, which separates a byte into two parts, * low * and * high * of 4 bits. Although low and high variables allow values up to 8 bits,  if values above 15 is assign, they will be truncated.
-*8 bits byte =  **0xDE** [<span style="color:red;">1101</span><span style="color:blue;"> 1110</span>b]*  converte em:
-*4 bits bytes =  **high** : **0x0D** [<span style="color:red;">0000 1101 </span>b] and **low** : **0x0E** [<span style="color:blue;">0000 1110</span>b]* 
+*8 bits byte =  **0xDE** [1101 1110b]*  converte em:
+*4 bits bytes =  **high** : **0x0D** [0000 1101b] and **low** : **0x0E** [0000 1110b]* 
 
 * ** AsBit [Index, bIndex: Integer] **: Reads and writes (set or clear) the bit of position ** bIndex ** of the list byte at position ** Index **.
 
 * ** AsGeneric [Index, bIndex, bSize: Integer] **: Reads and writes a part of the list byte at position ** Index **, starting at position ** bIndex ** and size ** bSize **.
 Example:
 Set the bits 3 and 2:
-Before: ** 0x58 ** [<span style = "color: red;"> 0101 </span> <span style = "color: blue;"> 10 </span> <span style = "color: red;" > 00 </span> b] >> After: ** 0x5C ** [<span style = "color: red;"> 0101 </span> <span style = "color: blue;"> 11 </span> <span style = "color: red;"> 00 </span> b]
+Before: ** 0x58 ** [ 0101 1000b] >> After: ** 0x5C ** [0101 1100b]
 ```pascal
-ComDataBuffer.Items [0]: = $ 58;
-ComDataBuffer.As7bits.AsGeneric [0, 3, 2]: = $ 03; // 0x03 = 0000 0011b
+ComDataBuffer.Items [0]: = $58;
+ComDataBuffer.As7bits.AsGeneric [0, 3, 2]: = $03; // 0x03 = 0000 0011b
 ```
 
 ###CPort.Data
@@ -99,30 +99,19 @@ This library is compost of TComDataBytePacket object.
 	* **cptlLine**: is a ReadLine protocol, each line ended with CR (0x13) and LF (0x10), make up a new packet;
 	Exemple with **IncludeStrings** as false.
 	
-![](https://github.com/MaiconSoft/ComPort-Library/blob/master/NonOficial/Resource/Image1.PNG)
+ 	![](https://github.com/MaiconSoft/ComPort-Library/blob/master/NonOficial/Resource/Image1.PNG)
 
 	* **cptlStartEnd**: is a Tagged data, only data between StartString and StopString, make up a new packet. Otherwise will be discard.
-	Exemple with <span style = "color: red;">StartString = 0x00 0x00</span>, <span style = "color: purple;">  StopString = 0xFF 0xFF</span> and **IncludeStrings** as false.
-> Incame data: <span style = "color: gray;">  0x01</span><span style = "color: red;">  0x00 0x00</span><span style = "color: blue;">  0x01 0x00 0xFF 0x00</span><span style = "color: purple;">  0xFF 0xFF</span><span style = "color: gray;">  0xFF</span>
-> Discard 1: <span style = "color: gray;">  0x01</span>
-> Packet 1: <span style = "color: blue;"> 0x01 0x00 0xFF 0x00 </span>
-> Discard 2: <span style = "color: gray;">  0xFF</span>
+	Exemple with **StartString** = 0x00 0x00 **StopString** = 0xFF 0xFF and **IncludeStrings** as false.
+
+ 	![](https://github.com/MaiconSoft/ComPort-Library/blob/master/NonOficial/Resource/Image2.PNG)
 
 	* **cptlStartSize**: in this protocol, the StartString indicate the begin of protocol, but the byte in position **FixedPosition** (defined by user) store the size of packet;
-Exemple with **FixedPosition** = 2 and <span style = "color: red;">StartString = 0x00 0x00</span>
-> Incame data:
-<span style = "color: gray;">  0x01</span><span style = "color: red;">  0x00 0x00</span><span style = "color: blue;">  0xAA 0x33 </span><span style = "color: orange;">  0x05 </span><span style = "color: blue;">  0x80 0xDE</span><span style = "color: gray;">  0xAC 0xFF</span>
-> Byte [2] = <span style = "color: orange;">  0x05 </span>indicate size of packet is five bytes;
-> Discard 1: <span style = "color: gray;">  0x01</span>
-> Packet 1: <span style = "color: blue;">0xAA 0x33 0x05 0x80 0xDE </span>
-> Discard 2: <span style = "color: gray;">  0xAC 0xFF</span> 
+	Exemple with **FixedPosition** = 2 and **StartString** = 0x00 0x00
+
+ 	![](https://github.com/MaiconSoft/ComPort-Library/blob/master/NonOficial/Resource/Image3.PNG)
 
 	* **cptlStartFixedSize**:  in this protocol, the StartString indicate the begin of protocol, but the packet close after read **FixedSize** (defined by user)  bytes.
-Exemple with **FixedSize** = 4 and <span style = "color: red;">StartString = 0x00 0x00</span>
-> Incame data:
-<span style = "color: gray;">  0x01</span><span style = "color: red;">  0x00 0x00</span><span style = "color: blue;">  0xAA 0x33 0x05 0x80 </span><span style = "color: gray;">0xDE 0xAC 0xFF</span>
-> Discard 1: <span style = "color: gray;">  0x01</span>
-> Packet 1: <span style = "color: blue;">0xAA 0x33 0x05 0x80 </span>
-> Discard 2: <span style = "color: gray;">  0xDE 0xAC 0xFF</span> 
+	Exemple with **FixedSize** = 4 and **StartString** = 0x00 0x00
 
-
+	![](https://github.com/MaiconSoft/ComPort-Library/blob/master/NonOficial/Resource/Image4.PNG)
