@@ -12,7 +12,7 @@
   *                                                    *
   **************************************************** *)
 
-unit CPortButton;
+unit CPort.Ctrls;
 
 interface
 

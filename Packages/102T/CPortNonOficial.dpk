@@ -30,9 +30,14 @@ package CPortNonOficial;
 requires
   rtl,
   vcl,
-  CPort_R;
+  CPort_R,
+  Custom;
 
 contains
-  CPortButton in '..\..\Source\CPortButton.pas';
+  CPort.Ctrls in '..\..\NonOficial\CPort.Ctrls.pas',
+  CPort.Data in '..\..\NonOficial\CPort.Data.pas',
+  CPort.Protocol.StartEnd in '..\..\NonOficial\CPort.Protocol.StartEnd.pas',
+  CPort.Protocol in '..\..\NonOficial\CPort.Protocol.pas',
+  CPort.Types in '..\..\NonOficial\CPort.Types.pas';
 
 end.

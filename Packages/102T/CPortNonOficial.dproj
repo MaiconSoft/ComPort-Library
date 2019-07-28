@@ -77,7 +77,7 @@
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <VerInfo_Keys>CompanyName=;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
         <VerInfo_Locale>1033</VerInfo_Locale>
-        <DCC_UsePackage>rtl;vcl;CPort_R;$(DCC_UsePackage)</DCC_UsePackage>
+        <DCC_UsePackage>rtl;vcl;CPort_R;Custom;$(DCC_UsePackage)</DCC_UsePackage>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win64)'!=''">
         <DCC_UsePackage>rtl;vcl;$(DCC_UsePackage)</DCC_UsePackage>
@@ -92,6 +92,8 @@
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
         <DCC_RemoteDebug>false</DCC_RemoteDebug>
+        <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+        <VerInfo_Locale>1033</VerInfo_Locale>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
         <DCC_LocalDebugSymbols>false</DCC_LocalDebugSymbols>
@@ -106,7 +108,12 @@
         <DCCReference Include="rtl.dcp"/>
         <DCCReference Include="vcl.dcp"/>
         <DCCReference Include="CPort_R.dcp"/>
-        <DCCReference Include="..\..\Source\CPortButton.pas"/>
+        <DCCReference Include="Custom.dcp"/>
+        <DCCReference Include="..\..\NonOficial\CPort.Ctrls.pas"/>
+        <DCCReference Include="..\..\NonOficial\CPort.Data.pas"/>
+        <DCCReference Include="..\..\NonOficial\CPort.Protocol.StartEnd.pas"/>
+        <DCCReference Include="..\..\NonOficial\CPort.Protocol.pas"/>
+        <DCCReference Include="..\..\NonOficial\CPort.Types.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
@@ -127,6 +134,12 @@
                 <Source>
                     <Source Name="MainSource">CPortNonOficial.dpk</Source>
                 </Source>
+                <Excluded_Packages>
+                    <Excluded_Packages Name="C:\Users\Public\Documents\Embarcadero\Studio\19.0\Bpl\GMLib_D_Tokyo.bpl">GoogleMaps Library v1.5.5 (Copyright © Xavier Martínez - cadetill)</Excluded_Packages>
+                    <Excluded_Packages Name="C:\Users\Public\Documents\Embarcadero\Studio\19.0\Bpl\GMLib_D_Seattle10_VCL.bpl">GoogleMaps Library v1.5.2 VCL (Copyright © Xavier Martínez - cadetill)</Excluded_Packages>
+                    <Excluded_Packages Name="C:\Users\Public\Documents\Embarcadero\Studio\19.0\Bpl\GMLibEdit_D_Tokyo.bpl">GoogleMaps Library Editors (Copyright © Xavier Martínez - cadetill)</Excluded_Packages>
+                    <Excluded_Packages Name="C:\Users\Public\Documents\Embarcadero\Studio\19.0\Bpl\GMLib_D_Tokyo_VCL.bpl">GoogleMaps Library v1.5.5 VCL (Copyright © Xavier Martínez - cadetill)</Excluded_Packages>
+                </Excluded_Packages>
             </Delphi.Personality>
             <Deployment Version="3">
                 <DeployFile LocalName="$(BDS)\Redist\osx32\libcgunwind.1.0.dylib" Class="DependencyModule">
