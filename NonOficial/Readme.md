@@ -98,6 +98,7 @@ This library is compost of TComDataBytePacket object.
 
 	* **cptlLine**: is a ReadLine protocol, each line ended with CR (0x13) and LF (0x10), make up a new packet;
 	Exemple with **IncludeStrings** as false.
+	
 ![](https://github.com/MaiconSoft/ComPort-Library/blob/master/NonOficial/Resource/Image1.PNG)
 
 	* **cptlStartEnd**: is a Tagged data, only data between StartString and StopString, make up a new packet. Otherwise will be discard.
